@@ -1,4 +1,5 @@
-﻿using System;
+//Made by MScript 2025
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
