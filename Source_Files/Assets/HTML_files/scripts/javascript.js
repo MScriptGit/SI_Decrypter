@@ -1,3 +1,4 @@
+//Made by MScript 2024
 function tableGen() {
     
     //get the userInput
