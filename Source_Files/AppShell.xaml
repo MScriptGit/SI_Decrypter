@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    
+    xmlns:local="clr-namespace:SI_Decrypter"
+    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SI_Decrypter.AppShell"
+    Shell.FlyoutBehavior="Flyout">
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <ShellContent
+        Title="Bruteforce Rotation Decrypter"
+        ContentTemplate="{DataTemplate local:rotate_bruteforce}"
+        Route="rotate_bruteforce" />
+    <ShellContent
+        Title="Character Counter"
+        ContentTemplate="{DataTemplate local:CharCount}"
+        Route="CharCount" />
+    <ShellContent
+        Title="Word Lookup (Dutch only)"
+        ContentTemplate="{DataTemplate local:wordLookupNL}"
+        Route="wordLookupNL" />
+    <ShellContent
+        Title="Word Pattern Lookup (Dutch only)"
+        ContentTemplate="{DataTemplate local:WordPatternNL}"
+        Route="WordPatternNL" />
+    <ShellContent
+        Title="Word Starts With... (Dutch only)"
+        ContentTemplate="{DataTemplate local:WordStartsWithNL}"
+        Route="WordStartsWithNL" />
+    <ShellContent
+        Title="Word Ends With... (Dutch only)"
+        ContentTemplate="{DataTemplate local:WordEndsWithNL}"
+        Route="WordEndsWithNL" />
+    <ShellContent
+        Title="Number Sequence Analyzer"
+        ContentTemplate="{DataTemplate local:NumberSequenceAnalyzer}"
+        Route="NumberSequenceAnalyzer" />
+    <ShellContent
+        Title="Columnar Shift"
+        ContentTemplate="{DataTemplate local:ColumnarShift}"
+        Route="ColumnarShift" />
+    <Shell.TitleView>
+        <HorizontalStackLayout
+            VerticalOptions="Fill">
+            <Label
+                Text="Spekman Industries"
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="Medium" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+</Shell>

@@ -1,0 +1,99 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Reflection;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using Android.Content.Res;
+//using Java.Lang;
+
+//[Android.Runtime.Register("android/content/res/AssetManager", DoNotGenerateAcw = true)]
+//public sealed class AssetManager : Java.Lang.Object, IDisposable, Java.Interop.IJavaPeerable, Java.Lang.IAutoCloseable
+
+namespace SI_Decrypter
+{
+    public partial class wordLookupNL : ContentPage
+    {
+        public wordLookupNL()
+        {
+            InitializeComponent();
+
+        }
+
+        public void EnsureResourceCopied(string resourceFilename, string destinationFilename)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"{assembly.GetName().Name}.Resources.Raw.txtFiles.{resourceFilename}";
+            string destinationPath = Path.Combine(FileSystem.Current.AppDataDirectory, destinationFilename);
+
+            // Controleer of het bestand al bestaat in de AppDataDirectory
+            if (!File.Exists(destinationPath))
+            {
+                using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (resourceStream != null)
+                    {
+                        using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write))
+                        {
+                            resourceStream.CopyTo(fileStream);
+                        }
+                    }
+                    else
+                    {
+                        throw new FileNotFoundException($"Resource '{resourceName}' not found.");
+                    }
+                }
+            }
+        }
+
+
+        private void getEntry(object sender, EventArgs e)
+        {
+            string inputText = userInput.Text;
+            string pattern = @"^" + inputText + "$";
+            int inputLen = inputText.Length;
+            StringBuilder outputText = new StringBuilder();
+
+            // Instantiate the regular expression object.
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+
+            try
+            {
+                EnsureResourceCopied("wordlistOpenTaalDutchComplete2-20-23.txt", "wordlistOpenTaalDutchComplete2-20-23.txt");
+                //next line is var for testing purposes
+                //string wordFile = "Resources/Raw/txtFiles/OpenTaal-210G-basis-gekeurd.txt";
+                var wordFile = Path.Combine(FileSystem.Current.AppDataDirectory, "wordlistOpenTaalDutchComplete2-20-23.txt");
+                // Create a StreamReader
+                using (StreamReader reader = new StreamReader(wordFile))
+                {
+                    string line;
+                    // Read line by line
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        int lineLen = line.Length;
+                        bool lenMatch = lineLen == inputLen;
+                        if (lenMatch)
+                        {
+                            Match m = r.Match(line);
+
+                            if (m.Success)
+                            {
+                                outputText.Append(line + "\n");
+                            }
+                        }
+                    }
+                    outputTxt.Text = outputText.ToString();
+                }
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+                outputTxt.Text = exp.Message;
+            }
+        }
+    }
+}

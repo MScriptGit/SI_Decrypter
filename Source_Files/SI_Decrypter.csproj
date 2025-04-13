@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0-android</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>latestMajor</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseMauiEssentials>false</UseMauiEssentials>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="" />
+    <EmbeddedResource Update="rotate_bruteforce.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CharCount.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wordLookupNL.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WordStartsWithNL.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WordEndsWithNL.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="" />
+    <EmbeddedResource Update="NumberSequenceAnalyzer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="" />
+    <EmbeddedResource Update="ColumnarShift.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WordPatternNL.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources/Raw/txtFiles/wordlistOpenTaalDutchComplete2-20-23.txt" />
+    <EmbeddedResource Include="Resources/Raw/txtFiles/OpenTaal-210G-basis-gekeurd.txt" />
+    <EmbeddedResource Include="Resources/Raw/wordlistOpenTaalDutchComplete2-20-23.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets/OpenTaal-210G-basis-gekeurd.txt" />
+    <EmbeddedResource Include="Assets/wordlistOpenTaalDutchComplete2-20-23.txt" />
+    <EmbeddedResource Include="Assets/HTML_files/index.html" />
+    <EmbeddedResource Include="Assets/HTML_files/Arrow.png" />
+    <EmbeddedResource Include="Assets/HTML_files/styles/style.css" />
+    <EmbeddedResource Include="Assets/HTML_files/scripts/javascript.js" />
+  </ItemGroup>
+  <Target Name="CopyResources" AfterTargets="CopyFilesToOutputDirectory">
+    <ItemGroup>
+      <ResourceFiles Include="Resources\Raw\txtFiles\wordlistOpenTaalDutchComplete2-20-23.txt" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ResourceFiles)" DestinationFolder="$(OutputPath)Resources\Raw\txtFiles" />
+  </Target>
+</Project>
